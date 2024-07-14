@@ -1,0 +1,16 @@
+<!-- templates/import.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Import Accounts</title>
+</head>
+<body>
+    <h1>Import Accounts from CSV</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="csv_file" required>
+        <button type="submit">Upload</button>
+    </form>
+</body>
+</html>
