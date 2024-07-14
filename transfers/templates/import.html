@@ -1,16 +1,17 @@
-<!-- templates/import.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Import Accounts</title>
-</head>
-<body>
-    <h1>Import Accounts from CSV</h1>
+ {% extends "base.html" %}
+ {% load static %}
+{% load bootstrap4 %}
+{% block title %}
+Import Accounts
+{% endblock title %}
+{% block body %}
+    <div class="container mt-5 pt-5">
+    <h1 class="text-center mb-3">Import Accounts from CSV</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type="file" name="csv_file" required>
-        <button type="submit">Upload</button>
+        <input class="form-control" type="file" name="csv_file" required>
+        
+        <button class="btn btn-primary mt-3" type="submit">Upload</button>
     </form>
-</body>
-</html>
+</div>
+{% endblock %}

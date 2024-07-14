@@ -1,13 +1,11 @@
 <!-- templates/transfer.html -->
-<!DOCTYPE html>
+ {% extends "base.html" %}
+ {% load static %}
 {% load bootstrap4 %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Transfer Funds</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
+{% block title %}
+Transfer Funds
+{% endblock title %}
+{% block body %}
     <section class="section mt-5">
         <div class="container">
             <h1 class="title">Transfer Funds</h1>
@@ -25,8 +23,5 @@
             {% endif %}
         </div>
     </section>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+    
+{% endblock %}
