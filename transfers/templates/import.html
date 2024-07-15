@@ -6,6 +6,7 @@ Import Accounts
 {% endblock title %}
 {% block body %}
     <div class="container mt-5 pt-5">
+        {% include "includes/alerts.html" %}
     <h1 class="text-center mb-3">Import Accounts from CSV</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
