@@ -39,6 +39,9 @@ def account_detail(request, account_number):
     })
 
 
+def home(request):
+    return render(request , 'home.html')
+
 
 def transfer_funds(request):
     if request.method == 'POST':
