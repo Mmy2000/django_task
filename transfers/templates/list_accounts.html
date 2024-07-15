@@ -5,6 +5,33 @@
 Accounts
 {% endblock title %}
 {% block body %}
-
+<div class="container mt-4">
+        <h1 class="mb-4">List of Accounts</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Account Name</th>
+                    <th>Account Number</th>
+                    <th>Balance</th>
+                    <!-- Add more columns as needed -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for account in accounts %}
+                <tr>
+                    <th scope="row"><a href="{% url 'account_detail' account.account_number %}">{{ forloop.counter }}<a/></th>
+                    <td>{{ account.name }}</td>
+                    <td>{{ account.account_number }}</td>
+                    <td>{{ account.balance }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center">No accounts found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
 {% endblock %}

@@ -2,10 +2,74 @@
  {% load static %}
 {% load bootstrap4 %}
 {% block title %}
-Accounts Details
-
+{{ account.account_number }}
 {% endblock title %}
 {% block body %}
+
+        <div class="container mt-4">
+        <h1 class="mb-4">Account Detail</h1>
+        
+        <!-- Account Details -->
+        <div class="mb-4">
+            <h2>{{ account.name }}</h2>
+            <p><strong>Account Number:</strong> {{ account.account_number }}</p>
+            <p><strong>Balance:</strong> {{ account.balance }}</p>
+        </div>
+        
+        <!-- Transfers Made Table -->
+        <h3 class="mb-3">Transfers Made</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>To Account</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transfer in transfers_made %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ transfer.timestamp }}</td>
+                    <td>{{ transfer.amount }}</td>
+                    <td>{{ transfer.to_account }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center">No transfers made.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <!-- Transfers Received Table -->
+        <h3 class="mb-3">Transfers Received</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>From Account</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transfer in transfers_received %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ transfer.timestamp }}</td>
+                    <td>{{ transfer.amount }}</td>
+                    <td>{{ transfer.from_account }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center">No transfers received.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
 
 {% endblock %}

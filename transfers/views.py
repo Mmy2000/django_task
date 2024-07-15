@@ -1,5 +1,5 @@
 import csv
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
 from .models import Account , Transfer
 
@@ -24,9 +24,17 @@ def list_accounts(request):
 
 
 def account_detail(request, account_number):
-    account = Account.objects.get(account_number=account_number)
-    return render(request, 'account_detail.html', {'account': account})
-
+    account = get_object_or_404(Account, account_number=account_number)
+    
+    # Retrieve all transfers made by this account and received by this account
+    transfers_made = account.transfers_made.all()
+    transfers_received = account.transfers_received.all()
+    
+    return render(request, 'account_detail.html', {
+        'account': account,
+        'transfers_made': transfers_made,
+        'transfers_received': transfers_received
+    })
 
 from django import forms
 
