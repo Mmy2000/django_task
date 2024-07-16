@@ -7,18 +7,40 @@ from .forms import TransferForm
 
 
 def import_accounts(request):
-    if request.method == 'POST' and request.FILES['csv_file']:
+    if request.method == 'POST' and 'csv_file' in request.FILES:
         csv_file = request.FILES['csv_file']
-        reader = csv.DictReader(csv_file.read().decode('utf-8').splitlines())
-        for row in reader:
-            Account.objects.create(
-                account_number=row['ID'],
-                name=row['Name'],
-                balance=row['Balance']
-            )
-        messages.success(request,'Accounts imported successfully')
-       
+        
+        # Check if the file is a CSV
+        if not csv_file.name.endswith('.csv'):
+            messages.error(request, 'Please upload a file with a .csv extension.')
+            return render(request, 'import.html')
+
+        # Check the MIME type
+        if csv_file.content_type != 'text/csv':
+            messages.error(request, 'Uploaded file is not a CSV file.')
+            return render(request, 'import.html')
+
+        try:
+            # Read and decode the CSV file
+            reader = csv.DictReader(csv_file.read().decode('utf-8').splitlines())
+            
+            for row in reader:
+                Account.objects.create(
+                    account_number=row['ID'],
+                    name=row['Name'],
+                    balance=row['Balance']
+                )
+
+            messages.success(request, 'Accounts imported successfully')
+        except UnicodeDecodeError:
+            messages.error(request, 'Error decoding the CSV file. Please ensure it is encoded in UTF-8.')
+        except csv.Error as e:
+            messages.error(request, f"Error reading CSV file: {e}")
+        except Exception as e:
+            messages.error(request, f"Unexpected error: {e}")
+
     return render(request, 'import.html')
+
 
 
 
